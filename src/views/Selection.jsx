@@ -31,7 +31,7 @@ const Selection = ({ onReady }) => {
 
 
   const getPokemons = () => {
-    axios("https://pokeapi.co/api/v2/pokemon?limit=1")
+    axios("https://pokeapi.co/api/v2/pokemon?limit=150")
       .then(response => {
         response.data.results.forEach(pokemon => {
           dispatch({
@@ -48,22 +48,12 @@ const Selection = ({ onReady }) => {
     setPokemonToFind(e.target.value);
   }
 
-  const findPokemon = () => {
-    console.log("Buscando pokemon " + pokemonToFind)
-
-  }
-
   return (
     <>
       <div>
         <h2>Seleccionar Pokemon</h2>
 
-        <input type="text" placeholder="Nombre" name="name" value={pokemonToFind} onChange={handleOnChange} />
-        <input
-          type="button"
-          value="Buscar"
-          onClick={findPokemon}
-        />
+        <input type="text" placeholder="Filtrar" name="name" value={pokemonToFind} onChange={handleOnChange} />
         {pokemonToFind.length > 0
           ?
           <ul>
