@@ -1,7 +1,5 @@
 import Layout from "./components/Layout";
-import { useState } from "react";
-import Battle from "./views/Battle";
-import Selection from "./views/Selection";
+import PokemonBattle from "./components/PokemonBattle";
 
 /* 
   Crear un componente Selection que cuente con un input que permita filtrar un pokemon.
@@ -167,16 +165,11 @@ import Selection from "./views/Selection";
 */
 
 function App() {
-  const [ready, setReady] = useState(false);
-
-  const readyToBattle = () => {
-    setReady(true);
-  };
 
   return (
     <>
       <Layout>
-        {ready ? <Battle /> : <Selection onReady={readyToBattle} />}
+        <PokemonBattle/>
       </Layout>
     </>
   );

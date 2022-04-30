@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
-import ChoiseButton from "../components/ChoiseButton";
 import { types } from "../types/types";
 
-const Selection = ({ onReady }) => {
+const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
 
   const initialStatePokemons = {
     pokemons: []
@@ -49,6 +48,18 @@ const Selection = ({ onReady }) => {
     setPokemonToFind(e.target.value);
   }
 
+  const handleClick = (index) => {
+    console.log("El pokemon elegido por el usuario es " + pokemonsState.pokemons[index]);
+    setUserPokemon(pokemonsState.pokemons[index]);
+
+    let randomIndex = Math.floor(Math.random() * pokemonsState.pokemons.length);
+
+    console.log("El pokemon elegido por la IA es " + pokemonsState.pokemons[randomIndex]);
+    setIaPokemon(pokemonsState.pokemons[randomIndex]);
+
+    onReady();
+  }
+
   return (
     <>
       <div>
@@ -61,7 +72,11 @@ const Selection = ({ onReady }) => {
             {pokemonsState.pokemons.filter((pokemon) => pokemon.includes(pokemonToFind)).map((pokemon, index) => (
               <li key={index}>
                 {pokemon}
-                <ChoiseButton onReady={onReady} />
+                <input
+                  type="button"
+                  value="Elegir"
+                  onClick={() => handleClick(index)}
+                />
               </li>
             ))}
           </ul>
@@ -70,7 +85,11 @@ const Selection = ({ onReady }) => {
             {pokemonsState.pokemons.map((pokemon, index) => (
               <li key={index}>
                 {pokemon}
-                <ChoiseButton onReady={onReady} />
+                <input
+                  type="button"
+                  value="Elegir"
+                  onClick={() => handleClick(index)}
+                />
               </li>
             ))}
           </ul>

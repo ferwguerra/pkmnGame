@@ -1,9 +1,13 @@
 import React from "react";
 
-const Battle = () => {
+const Battle = ({ userPokemon, iaPokemon }) => {
   return (
     <>
-      <div>Battle</div>
+      <h1>Batalla</h1>
+      <br></br>
+      <div>El usuario eligió el pokemon {userPokemon}</div>
+      <br></br>
+      <div>La IA usará al pokemon {iaPokemon}</div>
     </>
   );
 };
