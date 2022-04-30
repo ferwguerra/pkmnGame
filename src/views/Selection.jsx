@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { types } from "../components/types/types";
 
 const Selection = ({ onReady }) => {
@@ -27,11 +27,11 @@ const Selection = ({ onReady }) => {
       await getPokemons();
     }
     loadInitialPokemons();
-    return () => { }
   }, []);
 
+
   const getPokemons = () => {
-    axios("https://pokeapi.co/api/v2/pokemon?limit=150")
+    axios("https://pokeapi.co/api/v2/pokemon?limit=1")
       .then(response => {
         response.data.results.forEach(pokemon => {
           dispatch({
@@ -42,28 +42,60 @@ const Selection = ({ onReady }) => {
       })
   }
 
+  const [pokemonToFind, setPokemonToFind] = useState("");
 
+  const handleOnChange = (e) => {
+    setPokemonToFind(e.target.value);
+  }
+
+  const findPokemon = () => {
+    console.log("Buscando pokemon " + pokemonToFind)
+
+  }
 
   return (
     <>
       <div>
         <h2>Seleccionar Pokemon</h2>
 
-        <input type="text" placeholder="Nombre" name="name" />
+        <input type="text" placeholder="Nombre" name="name" value={pokemonToFind} onChange={handleOnChange} />
         <input
           type="button"
           value="Buscar"
-          onClick={() => {
-            onReady();
-          }}
+          onClick={findPokemon}
         />
-        <ul>
-          {pokemonsState.pokemons.map((pokemon, index) => (
-            <li key={index}>
-              {pokemon}
-            </li>
-          ))}
-        </ul>
+        {pokemonToFind.length > 0
+          ?
+          <ul>
+            {pokemonsState.pokemons.filter((pokemon) => pokemon === pokemonToFind).map((pokemon, index) => (
+              <li key={index}>
+                {pokemon}
+                <input
+                  type="button"
+                  value="Elegir"
+                  onClick={() => {
+                    onReady();
+                  }}
+                />
+              </li>
+            ))}
+          </ul>
+          :
+          <ul>
+            {pokemonsState.pokemons.map((pokemon, index) => (
+              <li key={index}>
+                {pokemon}
+                <input
+                  type="button"
+                  value="Elegir"
+                  onClick={() => {
+                    onReady();
+                  }}
+                />
+              </li>
+            ))}
+          </ul>
+        }
       </div>
     </>
   );
