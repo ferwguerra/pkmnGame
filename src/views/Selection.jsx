@@ -34,9 +34,19 @@ const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
     axios("https://pokeapi.co/api/v2/pokemon?limit=150")
       .then(response => {
         response.data.results.forEach(pokemon => {
-          dispatch({
-            type: types.ADD_POKEMON,
-            payload: pokemon.name
+
+          const pokemonName = pokemon.name;
+
+          axios(pokemon.url).then(response => {
+            const pokemonHp = response.data.stats[0].base_stat;
+
+            dispatch({
+              type: types.ADD_POKEMON,
+              payload: {
+                "name": pokemonName,
+                "hp": pokemonHp
+              }
+            });
           });
         });
       })
@@ -49,12 +59,12 @@ const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
   }
 
   const handleClick = (index) => {
-    console.log("El pokemon elegido por el usuario es " + pokemonsState.pokemons[index]);
+    console.log("El pokemon elegido por el usuario es " + pokemonsState.pokemons[index].name);
     setUserPokemon(pokemonsState.pokemons[index]);
 
     let randomIndex = Math.floor(Math.random() * pokemonsState.pokemons.length);
 
-    console.log("El pokemon elegido por la IA es " + pokemonsState.pokemons[randomIndex]);
+    console.log("El pokemon elegido por la IA es " + pokemonsState.pokemons[randomIndex].name);
     setIaPokemon(pokemonsState.pokemons[randomIndex]);
 
     onReady();
@@ -69,9 +79,9 @@ const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
         {pokemonToFind.length > 0
           ?
           <ul>
-            {pokemonsState.pokemons.filter((pokemon) => pokemon.includes(pokemonToFind)).map((pokemon, index) => (
+            {pokemonsState.pokemons.filter((pokemon) => pokemon.name.includes(pokemonToFind)).map((pokemon, index) => (
               <li key={index}>
-                {pokemon}
+                {pokemon.name} / HP: {pokemon.hp}
                 <input
                   type="button"
                   value="Elegir"
@@ -84,7 +94,7 @@ const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
           <ul>
             {pokemonsState.pokemons.map((pokemon, index) => (
               <li key={index}>
-                {pokemon}
+                {pokemon.name} / HP: {pokemon.hp}
                 <input
                   type="button"
                   value="Elegir"

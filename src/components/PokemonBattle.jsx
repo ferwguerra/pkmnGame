@@ -11,8 +11,8 @@ const PokemonBattle = () => {
         setReady(true);
     };
 
-    const [userPokemon, setUserPokemon] = useState("");
-    const [iaPokemon, setIaPokemon] = useState("");
+    const [userPokemon, setUserPokemon] = useState({});
+    const [iaPokemon, setIaPokemon] = useState({});
 
     return (
         <div>
