@@ -57,7 +57,7 @@ const Selection = ({ onReady }) => {
         {pokemonToFind.length > 0
           ?
           <ul>
-            {pokemonsState.pokemons.filter((pokemon) => pokemon === pokemonToFind).map((pokemon, index) => (
+            {pokemonsState.pokemons.filter((pokemon) => pokemon.includes(pokemonToFind)).map((pokemon, index) => (
               <li key={index}>
                 {pokemon}
                 <input
