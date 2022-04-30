@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
-import { types } from "../components/types/types";
+import { types } from "../types/types";
 
 const Selection = ({ onReady }) => {
 
