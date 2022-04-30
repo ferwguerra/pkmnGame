@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
+import ChoiseButton from "../components/ChoiseButton";
 import { types } from "../types/types";
 
 const Selection = ({ onReady }) => {
@@ -60,13 +61,7 @@ const Selection = ({ onReady }) => {
             {pokemonsState.pokemons.filter((pokemon) => pokemon.includes(pokemonToFind)).map((pokemon, index) => (
               <li key={index}>
                 {pokemon}
-                <input
-                  type="button"
-                  value="Elegir"
-                  onClick={() => {
-                    onReady();
-                  }}
-                />
+                <ChoiseButton onReady={onReady} />
               </li>
             ))}
           </ul>
@@ -75,13 +70,7 @@ const Selection = ({ onReady }) => {
             {pokemonsState.pokemons.map((pokemon, index) => (
               <li key={index}>
                 {pokemon}
-                <input
-                  type="button"
-                  value="Elegir"
-                  onClick={() => {
-                    onReady();
-                  }}
-                />
+                <ChoiseButton onReady={onReady} />
               </li>
             ))}
           </ul>
