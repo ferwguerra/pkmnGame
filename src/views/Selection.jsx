@@ -23,10 +23,10 @@ const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
   const [pokemonsState, dispatch] = useReducer(pokemonReducer, initialStatePokemons);
 
   useEffect(() => {
-    const loadInitialPokemons = async () => {
+    const loadPokemonInitialData = async() => {
       await getPokemons();
     }
-    loadInitialPokemons();
+    loadPokemonInitialData();
   }, []);
 
 
@@ -58,13 +58,10 @@ const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
     setPokemonToFind(e.target.value);
   }
 
-  const handleClick = (index) => {
-    console.log("El pokemon elegido por el usuario es " + pokemonsState.pokemons[index].name);
-    setUserPokemon(pokemonsState.pokemons[index]);
+  const handleClick = (pokemonName) => {
+    setUserPokemon(pokemonsState.pokemons.filter(p => p.name === pokemonName)[0]);
 
     let randomIndex = Math.floor(Math.random() * pokemonsState.pokemons.length);
-
-    console.log("El pokemon elegido por la IA es " + pokemonsState.pokemons[randomIndex].name);
     setIaPokemon(pokemonsState.pokemons[randomIndex]);
 
     onReady();
@@ -85,7 +82,7 @@ const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
                 <input
                   type="button"
                   value="Elegir"
-                  onClick={() => handleClick(index)}
+                  onClick={() => handleClick(pokemon.name)}
                 />
               </li>
             ))}
@@ -98,7 +95,7 @@ const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
                 <input
                   type="button"
                   value="Elegir"
-                  onClick={() => handleClick(index)}
+                  onClick={() => handleClick(pokemon.name)}
                 />
               </li>
             ))}
