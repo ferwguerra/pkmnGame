@@ -14,11 +14,16 @@ const PokemonBattle = () => {
     const [userPokemon, setUserPokemon] = useState({});
     const [iaPokemon, setIaPokemon] = useState({});
 
+    const [userAttacks, setUserAttacks] = useState([]);
+    const [iaAttacks, setIaAttacks] = useState([]);
+
     return (
         <div>
             {ready
-                ? <Battle userPokemon={userPokemon} iaPokemon={iaPokemon} />
-                : <Selection onReady={readyToBattle} setUserPokemon={setUserPokemon} setIaPokemon={setIaPokemon} />}
+                ? <Battle userPokemon={userPokemon} userAttacks={userAttacks} iaPokemon={iaPokemon} iaAttacks={iaAttacks} />
+                : <Selection onReady={readyToBattle}
+                    setUserPokemon={setUserPokemon} setUserAttacks={setUserAttacks}
+                    setIaPokemon={setIaPokemon} setIaAttacks={setIaAttacks} />}
         </div>
     );
 };

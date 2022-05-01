@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
 import { types } from "../types/types";
 
-const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
+const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setIaAttacks }) => {
 
   const initialStatePokemons = {
     pokemons: []
@@ -23,18 +23,16 @@ const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
   const [pokemonsState, dispatch] = useReducer(pokemonReducer, initialStatePokemons);
 
   useEffect(() => {
-    const loadPokemonInitialData = async() => {
-      await getPokemons();
+    const loadPokemonInitialData = async () => {
+      getPokemons();
     }
     loadPokemonInitialData();
   }, []);
-
 
   const getPokemons = () => {
     axios("https://pokeapi.co/api/v2/pokemon?limit=150")
       .then(response => {
         response.data.results.forEach(pokemon => {
-
           const pokemonName = pokemon.name;
 
           axios(pokemon.url).then(response => {
@@ -58,13 +56,30 @@ const Selection = ({ onReady, setUserPokemon, setIaPokemon }) => {
     setPokemonToFind(e.target.value);
   }
 
-  const handleClick = (pokemonName) => {
+  const handleClick = async (pokemonName) => {
     setUserPokemon(pokemonsState.pokemons.filter(p => p.name === pokemonName)[0]);
+    setUserAttacks(await getAttacksForPokemon(pokemonName));
 
     let randomIndex = Math.floor(Math.random() * pokemonsState.pokemons.length);
     setIaPokemon(pokemonsState.pokemons[randomIndex]);
+    setIaAttacks(await getAttacksForPokemon(pokemonsState.pokemons[randomIndex].name));
 
     onReady();
+  }
+
+  const getAttacksForPokemon = async (pokemonName) => {
+    const moves = await axios("https://pokeapi.co/api/v2/pokemon/" + pokemonName)
+      .then(response => {
+        return response.data.moves;
+      });
+    let attacks = [];
+    moves.forEach((attack) => {
+      attacks = [...attacks, {
+        "name": attack.move.name,
+        "damage": Math.floor(Math.random() * 10)
+      }];
+    });
+    return attacks;
   }
 
   return (
