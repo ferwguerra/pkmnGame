@@ -1,31 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect } from "react";
 import useAttacks from "../hooks/useAttacks";
 import useFilter from "../hooks/useFilter";
+import usePokemonReducer from "../hooks/usePokemonReducer";
 import { types } from "../types/types";
 
 const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setIaAttacks }) => {
 
   const [getAttacksForPokemon] = useAttacks();
   const [pokemonToFind, handleOnChange] = useFilter();
-
-  const initialStatePokemons = {
-    pokemons: []
-  }
-
-  const pokemonReducer = (state, action) => {
-    switch (action.type) {
-      case types.ADD_POKEMON:
-        return {
-          ...state,
-          pokemons: [...state.pokemons, action.payload]
-        }
-      default:
-        break;
-    }
-  }
-
-  const [pokemonsState, dispatch] = useReducer(pokemonReducer, initialStatePokemons);
+  const [pokemonsState, dispatch] = usePokemonReducer();
 
   useEffect(() => {
     const loadPokemonInitialData = async () => {
@@ -34,25 +18,26 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
     loadPokemonInitialData();
   }, []);
 
-  const getPokemons = () => {
-    axios("https://pokeapi.co/api/v2/pokemon?limit=150")
+  const getPokemons = async () => {
+    const pokemonResponses = await axios("https://pokeapi.co/api/v2/pokemon?limit=150")
       .then(response => {
-        response.data.results.forEach(pokemon => {
-          const pokemonName = pokemon.name;
+        return response.data.results;
+      });
+    pokemonResponses.forEach(async (pokemon) => {
+      const pokemonName = pokemon.name;
 
-          axios(pokemon.url).then(response => {
-            const pokemonHp = response.data.stats[0].base_stat;
+      const pokemonHp = await axios(pokemon.url).then(response => {
+        return response.data.stats[0].base_stat;
+      });
 
-            dispatch({
-              type: types.ADD_POKEMON,
-              payload: {
-                "name": pokemonName,
-                "hp": pokemonHp
-              }
-            });
-          });
-        });
-      })
+      dispatch({
+        type: types.ADD_POKEMON,
+        payload: {
+          "name": pokemonName,
+          "hp": pokemonHp
+        }
+      });
+    });
   }
 
   const handleClick = async (pokemonName) => {
