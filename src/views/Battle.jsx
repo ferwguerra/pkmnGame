@@ -1,5 +1,5 @@
-import useAttackReducer from "../hooks/useAttackReducer";
 import useChooseAttack from "../hooks/useChooseAttack";
+import useAttackReducer from "../reducers/useAttackReducer";
 
 const Battle = ({ userPokemon, userAttacks, iaPokemon, iaAttacks }) => {
 

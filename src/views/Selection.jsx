@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
+import ChoosePokemonButton from "../components/ChoosePokemonButton";
 import useChoosePokemon from "../hooks/useChoosePokemon";
 import useFilter from "../hooks/useFilter";
-import usePokemonReducer from "../hooks/usePokemonReducer";
 import useSelection from "../hooks/useSelection";
+import usePokemonReducer from "../reducers/usePokemonReducer";
 
 const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setIaAttacks }) => {
 
@@ -27,11 +28,7 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
             {pokemonsState.pokemons.filter((pokemon) => pokemon.name.includes(pokemonToFind)).map((pokemon, index) => (
               <li key={index}>
                 {pokemon.name} / HP: {pokemon.hp}
-                <input
-                  type="button"
-                  value="Elegir"
-                  onClick={() => handleClick(pokemon.name)}
-                />
+                <ChoosePokemonButton handleClick={handleClick} pokemonName={pokemon.name} />
               </li>
             ))}
           </ul>
@@ -40,11 +37,7 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
             {pokemonsState.pokemons.map((pokemon, index) => (
               <li key={index}>
                 {pokemon.name} / HP: {pokemon.hp}
-                <input
-                  type="button"
-                  value="Elegir"
-                  onClick={() => handleClick(pokemon.name)}
-                />
+                <ChoosePokemonButton handleClick={handleClick} pokemonName={pokemon.name} />
               </li>
             ))}
           </ul>
