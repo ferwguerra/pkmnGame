@@ -21,41 +21,50 @@ const Battle = ({ userPokemon, userAttacks, iaPokemon, iaAttacks }) => {
       <h1>Batalla</h1>
       <br></br>
 
-      <div className="row">
-        <div className="column">
-          <div>El usuario eligió el pokemon {battleState.battle.userPokemon.name}</div>
-          <div>HP: {battleState.battle.userPokemon.hp}</div>
-          <ul>
-            {userAttacks.map((attack, index) => (
-              <li key={index}>
-                {attack.name} / DMG: {attack.damage}
-                <input
-                  type="button"
-                  value="Usar"
-                  onClick={() => handleClick(attack.damage, battleState.battle.iaPokemon, "user")}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
+      {battleState.battle.userPokemon.hp > 0 && battleState.battle.iaPokemon.hp > 0
+        ?
+        <div className="row">
+          <div className="column">
+            <div>El usuario eligió el pokemon {battleState.battle.userPokemon.name}</div>
+            <div>HP: {battleState.battle.userPokemon.hp}</div>
+            <ul>
+              {userAttacks.map((attack, index) => (
+                <li key={index}>
+                  {attack.name} / DMG: {attack.damage}
+                  <input
+                    type="button"
+                    value="Usar"
+                    onClick={() => handleClick(attack.damage, battleState.battle.iaPokemon, "user")}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <div className="column">
-          <div>La IA usará al pokemon {battleState.battle.iaPokemon.name}</div>
-          <div>HP: {battleState.battle.iaPokemon.hp}</div>
-          <ul>
-            {iaAttacks.map((attack, index) => (
-              <li key={index}>
-                {attack.name} / DMG: {attack.damage}
-                <input
-                  type="button"
-                  value="Usar"
-                  onClick={() => handleClick(attack.damage, battleState.battle.userPokemon, "ia")}
-                />
-              </li>
-            ))}
-          </ul>
+          <div className="column">
+            <div>La IA usará al pokemon {battleState.battle.iaPokemon.name}</div>
+            <div>HP: {battleState.battle.iaPokemon.hp}</div>
+            <ul>
+              {iaAttacks.map((attack, index) => (
+                <li key={index}>
+                  {attack.name} / DMG: {attack.damage}
+                  <input
+                    type="button"
+                    value="Usar"
+                    onClick={() => handleClick(attack.damage, battleState.battle.userPokemon, "ia")}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
+        :
+        battleState.battle.userPokemon.hp > 0
+          ?
+          <div>Gano el usuario!</div>
+          :
+          <div>Gano la IA</div>
+      }
     </>
   );
 };
