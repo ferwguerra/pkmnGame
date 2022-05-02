@@ -14,7 +14,7 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
 
   useEffect(() => {
     loadPokemonInitialData();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
