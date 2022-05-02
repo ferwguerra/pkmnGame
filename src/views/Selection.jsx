@@ -1,55 +1,19 @@
-import axios from "axios";
 import React, { useEffect } from "react";
-import useAttacks from "../hooks/useAttacks";
+import useChoose from "../hooks/useChoose";
 import useFilter from "../hooks/useFilter";
 import usePokemonReducer from "../hooks/usePokemonReducer";
-import { types } from "../types/types";
+import useSelection from "../hooks/useSelection";
 
 const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setIaAttacks }) => {
 
-  const [getAttacksForPokemon] = useAttacks();
   const [pokemonToFind, handleOnChange] = useFilter();
   const [pokemonsState, dispatch] = usePokemonReducer();
+  const [handleClick] = useChoose(pokemonsState, onReady, setUserPokemon, setUserAttacks, setIaPokemon, setIaAttacks);
+  const [loadPokemonInitialData] = useSelection(dispatch);
 
   useEffect(() => {
-    const loadPokemonInitialData = async () => {
-      getPokemons();
-    }
     loadPokemonInitialData();
   }, []);
-
-  const getPokemons = async () => {
-    const pokemonResponses = await axios("https://pokeapi.co/api/v2/pokemon?limit=150")
-      .then(response => {
-        return response.data.results;
-      });
-    pokemonResponses.forEach(async (pokemon) => {
-      const pokemonName = pokemon.name;
-
-      const pokemonHp = await axios(pokemon.url).then(response => {
-        return response.data.stats[0].base_stat;
-      });
-
-      dispatch({
-        type: types.ADD_POKEMON,
-        payload: {
-          "name": pokemonName,
-          "hp": pokemonHp
-        }
-      });
-    });
-  }
-
-  const handleClick = async (pokemonName) => {
-    setUserPokemon(pokemonsState.pokemons.filter(p => p.name === pokemonName)[0]);
-    setUserAttacks(await getAttacksForPokemon(pokemonName));
-
-    let randomIndex = Math.floor(Math.random() * pokemonsState.pokemons.length);
-    setIaPokemon(pokemonsState.pokemons[randomIndex]);
-    setIaAttacks(await getAttacksForPokemon(pokemonsState.pokemons[randomIndex].name));
-
-    onReady();
-  }
 
   return (
     <>

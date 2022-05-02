@@ -1,32 +1,35 @@
 import axios from "axios";
 import { types } from "../types/types";
-import usePokemonReducer from "./usePokemonReducer";
 
-const useSelection = () => {
-    const [pokemonsState, dispatch] = usePokemonReducer();
+const useSelection = (dispatch) => {
 
-    const getPokemons = () => {
-        axios("https://pokeapi.co/api/v2/pokemon?limit=150")
+    const getPokemons = async () => {
+        const pokemonResponses = await axios("https://pokeapi.co/api/v2/pokemon?limit=150")
             .then(response => {
-                response.data.results.forEach(pokemon => {
-                    const pokemonName = pokemon.name;
+                return response.data.results;
+            });
+        pokemonResponses.forEach(async (pokemon) => {
+            const pokemonName = pokemon.name;
 
-                    axios(pokemon.url).then(response => {
-                        const pokemonHp = response.data.stats[0].base_stat;
+            const pokemonHp = await axios(pokemon.url).then(response => {
+                return response.data.stats[0].base_stat;
+            });
 
-                        dispatch({
-                            type: types.ADD_POKEMON,
-                            payload: {
-                                "name": pokemonName,
-                                "hp": pokemonHp
-                            }
-                        });
-                    });
-                });
-            })
+            dispatch({
+                type: types.ADD_POKEMON,
+                payload: {
+                    "name": pokemonName,
+                    "hp": pokemonHp
+                }
+            });
+        });
     }
 
-    return [getPokemons]
+    const loadPokemonInitialData = () => {
+        getPokemons();
+    }
+
+    return [loadPokemonInitialData]
 
 }
 
