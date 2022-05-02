@@ -1,6 +1,6 @@
 import useAttacks from "./useAttacks";
 
-const useChoose = (pokemonsState, onReady, setUserPokemon, setUserAttacks, setIaPokemon, setIaAttacks) => {
+const useChoosePokemon = (pokemonsState, onReady, setUserPokemon, setUserAttacks, setIaPokemon, setIaAttacks) => {
 
     const [getAttacksForPokemon] = useAttacks();
 
@@ -18,4 +18,4 @@ const useChoose = (pokemonsState, onReady, setUserPokemon, setUserAttacks, setIa
     return [handleClick]
 }
 
-export default useChoose
+export default useChoosePokemon

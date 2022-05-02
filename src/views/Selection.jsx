@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import useChoose from "../hooks/useChoose";
+import useChoosePokemon from "../hooks/useChoosePokemon";
 import useFilter from "../hooks/useFilter";
 import usePokemonReducer from "../hooks/usePokemonReducer";
 import useSelection from "../hooks/useSelection";
@@ -8,7 +8,7 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
 
   const [pokemonToFind, handleOnChange] = useFilter();
   const [pokemonsState, dispatch] = usePokemonReducer();
-  const [handleClick] = useChoose(pokemonsState, onReady, setUserPokemon, setUserAttacks, setIaPokemon, setIaAttacks);
+  const [handleClick] = useChoosePokemon(pokemonsState, onReady, setUserPokemon, setUserAttacks, setIaPokemon, setIaAttacks);
   const [loadPokemonInitialData] = useSelection(dispatch);
 
   useEffect(() => {

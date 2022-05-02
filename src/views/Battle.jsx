@@ -1,20 +1,10 @@
 import useAttackReducer from "../hooks/useAttackReducer";
-import { types } from "../types/types";
+import useChooseAttack from "../hooks/useChooseAttack";
 
 const Battle = ({ userPokemon, userAttacks, iaPokemon, iaAttacks }) => {
 
   const [battleState, dispatch] = useAttackReducer(userPokemon, iaPokemon);
-
-  const handleClick = (damage, attacked, attacker) => {
-    dispatch({
-      type: types.ATTACK,
-      payload: {
-        damage: damage,
-        attacked: attacked,
-        attacker: attacker
-      }
-    });
-  }
+  const [handleClick] = useChooseAttack(dispatch);
 
   return (
     <>
@@ -61,9 +51,9 @@ const Battle = ({ userPokemon, userAttacks, iaPokemon, iaAttacks }) => {
         :
         battleState.battle.userPokemon.hp > 0
           ?
-          <div>Gano el usuario!</div>
+          <div>Ganaste! No seras Ash Ketchum vos, no?</div>
           :
-          <div>Gano la IA</div>
+          <div>Perdiste :(</div>
       }
     </>
   );
