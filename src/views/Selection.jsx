@@ -23,7 +23,7 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
         <input type="text" placeholder="Filtrar" name="name" value={pokemonToFind} onChange={handleOnChange} />
         {pokemonToFind.length > 0
           ?
-          <ul>
+          <ul className="chooseList">
             {pokemonsState.pokemons.filter((pokemon) => pokemon.name.includes(pokemonToFind)).map((pokemon, index) => (
               <li key={index}>
                 {pokemon.name} / HP: {pokemon.hp}
@@ -36,7 +36,7 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
             ))}
           </ul>
           :
-          <ul>
+          <ul className="chooseList">
             {pokemonsState.pokemons.map((pokemon, index) => (
               <li key={index}>
                 {pokemon.name} / HP: {pokemon.hp}

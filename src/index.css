@@ -9,9 +9,14 @@
   width: 50%;
 }
 
-/* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
+}
+
+.chooseList {
+  columns: 5;
+  -webkit-columns: 5;
+  -moz-columns: 5;
 }
