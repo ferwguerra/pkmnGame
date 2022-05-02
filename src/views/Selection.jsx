@@ -1,8 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer } from "react";
+import useAttacks from "../hooks/useAttacks";
+import useFilter from "../hooks/useFilter";
 import { types } from "../types/types";
 
 const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setIaAttacks }) => {
+
+  const [getAttacksForPokemon] = useAttacks();
+  const [pokemonToFind, handleOnChange] = useFilter();
 
   const initialStatePokemons = {
     pokemons: []
@@ -50,12 +55,6 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
       })
   }
 
-  const [pokemonToFind, setPokemonToFind] = useState("");
-
-  const handleOnChange = (e) => {
-    setPokemonToFind(e.target.value);
-  }
-
   const handleClick = async (pokemonName) => {
     setUserPokemon(pokemonsState.pokemons.filter(p => p.name === pokemonName)[0]);
     setUserAttacks(await getAttacksForPokemon(pokemonName));
@@ -65,21 +64,6 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
     setIaAttacks(await getAttacksForPokemon(pokemonsState.pokemons[randomIndex].name));
 
     onReady();
-  }
-
-  const getAttacksForPokemon = async (pokemonName) => {
-    const moves = await axios("https://pokeapi.co/api/v2/pokemon/" + pokemonName)
-      .then(response => {
-        return response.data.moves;
-      });
-    let attacks = [];
-    moves.forEach((attack) => {
-      attacks = [...attacks, {
-        "name": attack.move.name,
-        "damage": Math.floor(Math.random() * 10)
-      }];
-    });
-    return attacks;
   }
 
   return (
