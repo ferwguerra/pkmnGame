@@ -8,7 +8,8 @@ const Battle = ({ userPokemon, userAttacks, iaPokemon, iaAttacks }) => {
 
       <div className="row">
         <div className="column">
-          <div>El usuario eligió el pokemon {userPokemon.name} con HP {userPokemon.hp}</div>
+          <div>El usuario eligió el pokemon {userPokemon.name}</div>
+          <div>HP: {userPokemon.hp}</div>
           <ul>
             {userAttacks.map((attack, index) => (
               <li key={index}>
@@ -22,7 +23,8 @@ const Battle = ({ userPokemon, userAttacks, iaPokemon, iaAttacks }) => {
           </ul>
         </div>
         <div className="column">
-          <div>La IA usará al pokemon {iaPokemon.name} con HP {iaPokemon.hp}</div>
+          <div>La IA usará al pokemon {iaPokemon.name}</div>
+          <div>HP: {iaPokemon.hp}</div>
           <ul>
             {iaAttacks.map((attack, index) => (
               <li key={index}>
