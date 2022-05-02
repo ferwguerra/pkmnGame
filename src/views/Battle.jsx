@@ -1,11 +1,10 @@
-import useChooseAttack from "../hooks/useChooseAttack";
+import ChooseAttackButton from "../components/ChooseAttackButton";
 import useAttackReducer from "../reducers/useAttackReducer";
 
 const Battle = ({ userPokemon, userAttacks, iaPokemon, iaAttacks }) => {
 
   const [battleState, dispatch] = useAttackReducer(userPokemon, iaPokemon);
-  const [handleClick] = useChooseAttack(dispatch);
-
+  
   return (
     <>
       <h1>Batalla</h1>
@@ -21,11 +20,7 @@ const Battle = ({ userPokemon, userAttacks, iaPokemon, iaAttacks }) => {
               {userAttacks.map((attack, index) => (
                 <li key={index}>
                   {attack.name} / DMG: {attack.damage}
-                  <input
-                    type="button"
-                    value="Usar"
-                    onClick={() => handleClick(attack.damage, battleState.battle.iaPokemon, "user")}
-                  />
+                  <ChooseAttackButton dispatch={dispatch} damage={attack.damage} victim={battleState.battle.iaPokemon} attacker={"user"}/>
                 </li>
               ))}
             </ul>
@@ -38,11 +33,7 @@ const Battle = ({ userPokemon, userAttacks, iaPokemon, iaAttacks }) => {
               {iaAttacks.map((attack, index) => (
                 <li key={index}>
                   {attack.name} / DMG: {attack.damage}
-                  <input
-                    type="button"
-                    value="Usar"
-                    onClick={() => handleClick(attack.damage, battleState.battle.userPokemon, "ia")}
-                  />
+                  <ChooseAttackButton dispatch={dispatch} damage={attack.damage} victim={battleState.battle.userPokemon} attacker={"ia"}/>
                 </li>
               ))}
             </ul>
