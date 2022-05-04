@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import PokemonCard from "../components/PokemonCard";
+import PokemonCards from "../components/PokemonCards";
 import useChoosePokemon from "../hooks/useChoosePokemon";
 import useFilter from "../hooks/useFilter";
 import useSelection from "../hooks/useSelection";
@@ -22,24 +23,11 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
         <h2>Seleccionar Pokemon</h2>
 
         <input type="text" placeholder="Filtrar" name="name" value={pokemonToFind} onChange={handleOnChange} />
-        {pokemonToFind.length > 0
+        {pokemonToFind.length === 0
           ?
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr' }} >
-            {pokemonsState.pokemons && pokemonsState.pokemons.filter((pokemon) => pokemon.name.includes(pokemonToFind)).map((pokemon, index) =>
-              <div key={index}>
-                <PokemonCard pokemon={pokemon} handleClick={handleClick} />
-              </div>
-            )}
-          </div>
+          <PokemonCards listPokemons={pokemonsState.pokemons} handleClick={handleClick} />
           :
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr' }} >
-            {pokemonsState.pokemons && pokemonsState.pokemons.map((pokemon, index) =>
-              <div key={index}>
-                <PokemonCard pokemon={pokemon} handleClick={handleClick} />
-              </div>
-            )}
-          </div>
+          <PokemonCards listPokemons={pokemonsState.pokemons.filter((pokemon) => pokemon.name.includes(pokemonToFind))} handleClick={handleClick} />
         }
       </div>
     </>
