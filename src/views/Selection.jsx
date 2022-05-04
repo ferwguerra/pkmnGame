@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import PokemonCard from "../components/PokemonCard";
+import FilterPokemon from "../components/FilterPokemon";
 import PokemonCards from "../components/PokemonCards";
 import useChoosePokemon from "../hooks/useChoosePokemon";
 import useFilter from "../hooks/useFilter";
@@ -18,19 +18,15 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <>
-      <div>
-        <h2>Seleccionar Pokemon</h2>
+    <div>
+      <h2>Seleccionar Pokemon</h2>
+      <FilterPokemon criteria={pokemonToFind} listPokemons={pokemonsState.pokemons} handleOnChange={handleOnChange}/>
 
-        <input type="text" placeholder="Filtrar" name="name" value={pokemonToFind} onChange={handleOnChange} />
-        {pokemonToFind.length === 0
-          ?
-          <PokemonCards listPokemons={pokemonsState.pokemons} handleClick={handleClick} />
-          :
-          <PokemonCards listPokemons={pokemonsState.pokemons.filter((pokemon) => pokemon.name.includes(pokemonToFind))} handleClick={handleClick} />
-        }
-      </div>
-    </>
+      <PokemonCards listPokemons={pokemonToFind.length === 0 ?
+        pokemonsState.pokemons :
+        pokemonsState.pokemons.filter((pokemon) => pokemon.name.includes(pokemonToFind))}
+        handleClick={handleClick} />
+    </div>
   );
 };
 
