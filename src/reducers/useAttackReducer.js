@@ -19,7 +19,6 @@ const useAttackReducer = (userPokemon, iaPokemon) => {
                             ...state.battle,
                             iaPokemon: {
                                 ...state.battle.iaPokemon,
-                                "name": action.payload.attacked.name,
                                 "hp": action.payload.attacked.hp - action.payload.damage
                             }
                         }
@@ -32,7 +31,6 @@ const useAttackReducer = (userPokemon, iaPokemon) => {
                             ...state.battle,
                             userPokemon: {
                                 ...state.battle.iaPokemon,
-                                "name": action.payload.attacked.name,
                                 "hp": action.payload.attacked.hp - action.payload.damage
                             }
                         }
