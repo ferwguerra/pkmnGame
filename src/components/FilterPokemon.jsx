@@ -1,7 +1,7 @@
 const FilterPokemon = ({ criteria, listPokemons, handleOnChange }) => {
     return (
         <>
-            <div className="col-md-2 form-group">
+            <div className="col-md-2 form-group mb-3">
                 <input type="text" className="form-control" placeholder="Filtrar" name="name" value={criteria} onChange={handleOnChange} list="select-list-id" />
             </div>
             <datalist id="select-list-id">
