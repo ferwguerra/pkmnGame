@@ -2,13 +2,11 @@ import ChoosePokemonButton from "./ChoosePokemonButton";
 
 const PokemonCard = ({ pokemon, handleClick }) => {
 
-    console.log(pokemon);
-
     return (
         <div className="card mb-4">
             <div className="row no-gutters">
                 <div className="col-md-6">
-                    <img src={pokemon.imageUrl} className="card-img" alt="Avatar" style={{"height" : "150px", "width" : "180px"}}/>
+                    <img src={pokemon.imageUrl} className="card-img" alt="Avatar" style={{ "height": "150px", "width": "180px" }} />
                 </div>
                 <div className="col-md-6">
                     <div className="card-body">

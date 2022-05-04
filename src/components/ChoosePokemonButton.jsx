@@ -5,7 +5,7 @@ const ChoosePokemonButton = ({handleClick, pokemonName}) => {
         <input
             className="btn btn-primary"
             type="button"
-            value="Elegir"
+            value="Yo te elijo!"
             onClick={() => handleClick(pokemonName)}
         />
     );
