@@ -44,9 +44,15 @@ const Battle = ({ userPokemon, userAttacks, iaPokemon, iaAttacks }) => {
         :
         battleState.battle.userPokemon.hp > 0
           ?
-          <div>Ganaste! No seras Ash Ketchum vos, no?</div>
+          <>
+            <div>Ganaste! No seras Ash Ketchum vos, no?</div>
+            <img src="https://elcomercio.pe/resizer/V9Mz6wx9h_mJuj5Id8I8tIAzRKQ=/620x0/smart/filters:format(jpeg):quality(75)/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/AAYVPZJJXREDJJFYJD263VPYHQ.jpg" alt="Perdiste" />
+          </>
           :
-          <div>Perdiste :(</div>
+          <>
+            <div>Perdiste :(</div>
+            <img src="https://pm1.narvii.com/6053/7478490c086ae68ef34d1bcbccc42f363125974b_hq.jpg" alt="Perdiste" />
+          </>
       }
     </>
   );
