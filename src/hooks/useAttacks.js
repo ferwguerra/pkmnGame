@@ -11,7 +11,7 @@ const useAttacks = () => {
         moves.forEach((attack) => {
             attacks = [...attacks, {
                 "name": attack.move.name,
-                "damage": Math.floor(Math.random() * 10)
+                "damage": Math.floor(Math.random() * 10) + 1
             }];
         });
         return attacks;
