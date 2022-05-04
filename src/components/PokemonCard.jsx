@@ -1,6 +1,9 @@
 import ChoosePokemonButton from "./ChoosePokemonButton";
 
 const PokemonCard = ({ pokemon, handleClick }) => {
+
+    console.log(pokemon);
+
     return (
         <div className="card mb-4">
             <div className="row no-gutters">
@@ -11,7 +14,7 @@ const PokemonCard = ({ pokemon, handleClick }) => {
                     <div className="card-body">
                         <h5 className="card-title">{pokemon.name}</h5>
                         <p className="card-text">HP: {pokemon.hp}</p>
-                        <ChoosePokemonButton handleClick={handleClick} pokemonName={pokemon.name} />
+                        {handleClick && <ChoosePokemonButton handleClick={handleClick} pokemonName={pokemon.name} />}
                     </div>
                 </div>
             </div>
