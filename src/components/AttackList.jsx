@@ -1,8 +1,8 @@
 import useChooseAttack from "../hooks/useChooseAttack";
 
-const AttackList = ({attacks, victim, attacker, dispatch}) => {
+const AttackList = ({ attacks, victim, attacker, dispatch }) => {
 
-    const [handleClick] = useChooseAttack(dispatch);
+    const [getClassesForAttack, handleClick] = useChooseAttack(dispatch);
 
     return (
         <div className="list-group">
@@ -10,7 +10,7 @@ const AttackList = ({attacks, victim, attacker, dispatch}) => {
                 <button className="list-group-item list-group-item-action" key={index}
                     onClick={() => handleClick(attack.damage, victim, attacker)}>
                     {attack.name}
-                    <span className="badge bg-primary rounded-pill" style={{ float: "right" }}>{attack.damage}</span>
+                    <span className={getClassesForAttack(attack)} style={{ float: "right" }}>{attack.damage}</span>
                 </button>
             ))}
         </div>

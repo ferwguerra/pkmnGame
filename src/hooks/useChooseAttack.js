@@ -13,7 +13,18 @@ const useChooseAttack = (dispatch) => {
     });
   }
 
-    return [handleClick]
+  const getClassesForAttack = (attack) => {
+    let classes = "badge rounded-pill ";
+    if (attack.damage > 8) {
+      return classes.concat("bg-danger");
+    } else if (attack.damage < 5) {
+      return classes.concat("bg-success");
+    }
+    return classes.concat("bg-warning");
+  }
+
+
+  return [getClassesForAttack, handleClick]
 }
 
 export default useChooseAttack
