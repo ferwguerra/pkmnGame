@@ -8,11 +8,12 @@ const useAttacks = () => {
                 return response.data.moves;
             });
         let attacks = [];
-        moves.forEach((attack) => {
+        moves.some((attack, index) => {
             attacks = [...attacks, {
                 "name": attack.move.name,
                 "damage": Math.floor(Math.random() * 10) + 1
             }];
+            return index === 10; // limiting amount of attacks to keep it simple
         });
         return attacks;
     }
