@@ -1,4 +1,6 @@
 export const types = {
-    ADD_POKEMON: "ADD_POKEMON",
-    ATTACK: "ATTACK"
+    LOGIN: "LOGIN[auth]",
+    LOGOUT: "LOGOUT[auth]",
+    ADD_POKEMON: "ADD_POKEMON[pokemon]",
+    ATTACK: "ATTACK[attack]"
 }

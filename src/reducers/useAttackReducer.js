@@ -24,7 +24,6 @@ const useAttackReducer = (userPokemon, iaPokemon) => {
                         }
                     }
                 }
-
                 if (action.payload.attacker === "ia") {
                     return {
                         ...state,
@@ -38,9 +37,8 @@ const useAttackReducer = (userPokemon, iaPokemon) => {
                     }
                 }
                 break;
-
             default:
-                break;
+                return state;
         }
     }
 

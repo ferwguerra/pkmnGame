@@ -1,5 +1,7 @@
-import Layout from "./components/Layout";
-import PokemonBattle from "./components/PokemonBattle";
+import { useReducer } from "react";
+import { AuthContext } from "./auth/AuthContext";
+import { authReducer, initialStateAuth } from "./auth/authReducer";
+import AppRoutes from "./routes/AppRoutes";
 
 /* 
   Crear un componente Selection que cuente con un input que permita filtrar un pokemon.
@@ -166,12 +168,12 @@ import PokemonBattle from "./components/PokemonBattle";
 
 function App() {
 
+  const [authState, dispatch] = useReducer(authReducer, initialStateAuth);
+
   return (
-    <>
-      <Layout>
-        <PokemonBattle/>
-      </Layout>
-    </>
+    <AuthContext.Provider value={{ authState, dispatch }}>
+      <AppRoutes />
+    </AuthContext.Provider>
   );
 }
 

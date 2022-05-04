@@ -14,7 +14,7 @@ const usePokemonReducer = () => {
           pokemons: [...state.pokemons, action.payload]
         }
       default:
-        break;
+        return state;
     }
   }
 
