@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ChoosePokemonButton from "../components/ChoosePokemonButton";
+import PokemonCard from "../components/PokemonCard";
 import useChoosePokemon from "../hooks/useChoosePokemon";
 import useFilter from "../hooks/useFilter";
 import useSelection from "../hooks/useSelection";
@@ -24,23 +24,22 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
         <input type="text" placeholder="Filtrar" name="name" value={pokemonToFind} onChange={handleOnChange} />
         {pokemonToFind.length > 0
           ?
-          <ul className="chooseList">
-            {pokemonsState.pokemons.filter((pokemon) => pokemon.name.includes(pokemonToFind)).map((pokemon, index) => (
-              <li key={index}>
-                {pokemon.name} / HP: {pokemon.hp}
-                <ChoosePokemonButton handleClick={handleClick} pokemonName={pokemon.name} />
-              </li>
-            ))}
-          </ul>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr' }} >
+            {pokemonsState.pokemons && pokemonsState.pokemons.filter((pokemon) => pokemon.name.includes(pokemonToFind)).map((pokemon, index) =>
+              <div key={index}>
+                <PokemonCard pokemon={pokemon} handleClick={handleClick} />
+              </div>
+            )}
+          </div>
           :
-          <ul className="chooseList">
-            {pokemonsState.pokemons.map((pokemon, index) => (
-              <li key={index}>
-                {pokemon.name} / HP: {pokemon.hp}
-                <ChoosePokemonButton handleClick={handleClick} pokemonName={pokemon.name} />
-              </li>
-            ))}
-          </ul>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr' }} >
+            {pokemonsState.pokemons && pokemonsState.pokemons.map((pokemon, index) =>
+              <div key={index}>
+                <PokemonCard pokemon={pokemon} handleClick={handleClick} />
+              </div>
+            )}
+          </div>
         }
       </div>
     </>

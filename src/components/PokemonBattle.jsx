@@ -37,7 +37,7 @@ const PokemonBattle = () => {
     const [iaAttacks, setIaAttacks] = useState([]);
 
     return (
-        <div>
+        <div className="container-fluid">
             {ready
                 ? <Battle userPokemon={userPokemon} userAttacks={userAttacks} iaPokemon={iaPokemon} iaAttacks={iaAttacks} />
                 : <Selection onReady={readyToBattle}

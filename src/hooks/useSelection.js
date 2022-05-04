@@ -11,15 +11,19 @@ const useSelection = (dispatch) => {
         pokemonResponses.forEach(async (pokemon) => {
             const pokemonName = pokemon.name;
 
-            const pokemonHp = await axios(pokemon.url).then(response => {
-                return response.data.stats[0].base_stat;
+            const pokemonInitialData = await axios(pokemon.url).then(response => {
+                return {
+                    "pokemonHp": response.data.stats[0].base_stat,
+                    "pokemonImageUrl": response.data.sprites.other.dream_world.front_default
+                }
             });
 
             dispatch({
                 type: types.ADD_POKEMON,
                 payload: {
                     "name": pokemonName,
-                    "hp": pokemonHp
+                    "hp": pokemonInitialData.pokemonHp,
+                    "imageUrl": pokemonInitialData.pokemonImageUrl
                 }
             });
         });
