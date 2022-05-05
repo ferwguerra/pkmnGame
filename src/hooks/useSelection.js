@@ -4,7 +4,7 @@ import { types } from "../types/types";
 const useSelection = (dispatch) => {
 
     const getPokemons = async () => {
-        const pokemonResponses = await axios("https://pokeapi.co/api/v2/pokemon?limit=150")
+        const pokemonResponses = await axios("https://pokeapi.co/api/v2/pokemon?limit=250")
             .then(response => {
                 return response.data.results;
             });
