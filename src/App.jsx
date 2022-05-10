@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { AuthContext } from "./auth/AuthContext";
 import { authReducer, initialStateAuth } from "./auth/authReducer";
 import AppRoutes from "./routes/AppRoutes";
@@ -168,7 +168,11 @@ import AppRoutes from "./routes/AppRoutes";
 
 function App() {
 
-  const [authState, dispatch] = useReducer(authReducer, initialStateAuth);
+  const [authState, dispatch] = useReducer(authReducer, {}, initialStateAuth);
+
+  useEffect(() => {
+    authState.isAuthenticated ? localStorage.setItem('auth', JSON.stringify(authState)) : localStorage.removeItem('auth');
+  }, [authState]);
 
   return (
     <AuthContext.Provider value={{ authState, dispatch }}>

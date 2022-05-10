@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import CloseSessionButton from "../components/CloseSessionButton";
 import FilterPokemon from "../components/FilterPokemon";
 import PokemonCards from "../components/PokemonCards";
 import useChoosePokemon from "../hooks/useChoosePokemon";
@@ -19,6 +20,7 @@ const Selection = ({ onReady, setUserPokemon, setUserAttacks, setIaPokemon, setI
 
   return (
     <div>
+      <CloseSessionButton/>
       <h2>Seleccionar Pokemon</h2>
       <FilterPokemon criteria={pokemonToFind} listPokemons={pokemonsState.pokemons} handleOnChange={handleOnChange}/>
 

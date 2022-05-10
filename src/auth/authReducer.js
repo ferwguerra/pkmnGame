@@ -1,16 +1,13 @@
 import { types } from "../types/types";
 
-export const initialStateAuth = {
-    isAuthenticated: false,
-    user: {}
-}
-
-export const actionLogin = (user, dispatch) => {
-    dispatch({
-        type: types.LOGIN,
-        payload: user
-    });
-}
+export const initialStateAuth = () =>
+    localStorage.getItem("auth") ?
+        JSON.parse(localStorage.getItem("auth"))
+        :
+        {
+            isAuthenticated: false,
+            user: {}
+        };
 
 export const authReducer = (state, action) => {
     switch (action.type) {

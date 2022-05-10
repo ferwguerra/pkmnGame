@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import AttackList from "../components/AttackList";
+import CloseSessionButton from "../components/CloseSessionButton";
 import PokemonCard from "../components/PokemonCard";
 import useAttackReducer from "../reducers/useAttackReducer";
 
@@ -13,6 +14,7 @@ const Battle = ({ userPokemon, userAttacks, iaPokemon, iaAttacks }) => {
 
   return (
     <>
+      <CloseSessionButton/>
       <h1>Batalla</h1>
       <br></br>
 
